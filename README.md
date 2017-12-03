@@ -1,6 +1,6 @@
-# Adonis fullstack application
+# Todos app with Adonis + ReactJS + SemanticUI
 
-This is the fullstack boilerplate for AdonisJs, it comes pre-configured with.
+## Adonis
 
 1. Bodyparser
 2. Session
@@ -11,21 +11,25 @@ This is the fullstack boilerplate for AdonisJs, it comes pre-configured with.
 7. Lucid ORM
 8. Migrations and seeds
 
-## Setup
+## React client (client folder)
 
-Use the adonis command to install the blueprint
-
-```bash
-adonis new yardstick
+```
+$ cd client
+$ npm install
+$ npm run theme
+$ npm run start (for just react dev)
+$ npm run build (this will copy build folder to adonis public folder)
 ```
 
-or manually clone the repo and then run `npm install`.
+## Setup server
 
-
-### Migrations
-
-Run the following command to run startup migrations.
-
-```js
-adonis migration:run
 ```
+$ cd ..
+# npm install
+$ adonis key:generate
+$ adonis migration:run
+$ adonis seed
+$ adonis serve -dev
+```
+
+## Deploy (TODO)
