@@ -1,0 +1,21 @@
+# Node modules
+node_modules
+client/node_modules
+client/public/config.json
+client/package-lock.json
+
+# Adonis directory for storing tmp files
+tmp
+
+# Environment variables, never commit this file
+.env
+
+# Lock files
+package-lock.json
+yarn.lock
+
+# The development sqlite file
+database/development.sqlite
+
+# Others
+.editorconfig

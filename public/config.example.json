@@ -1,0 +1,23 @@
+{
+    "server": {
+        "endpoint": "http://localhost:8089"
+    },
+    "login": {
+        "error": false,
+        "email": "",
+        "pwd": ""
+    },
+    "profile": {
+        "user": false
+    },
+    "todos": {
+        "loading": false,
+        "items": [],
+        "filter": "all",
+        "form": {
+            "id": null,
+            "description": "",
+            "complete": false
+        }
+    }
+}
