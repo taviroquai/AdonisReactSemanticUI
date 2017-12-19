@@ -17,8 +17,9 @@
 $ cd client
 $ npm install
 $ npm run theme
+$ cp public/config.example.json public/config.json
 $ npm run start (for just react dev)
-$ npm run build (this will copy build folder to adonis public folder)
+$ npm run build (this will copy build folder to adonis public folder. For windows copy manually for now)
 ```
 
 ## Setup server
