@@ -2,11 +2,34 @@ import React, { Component } from 'react';
 import { Form, Message, Radio, Button, Divider, Table, Icon } from 'semantic-ui-react';
 
 class Todos extends Component {
-    render() {
-        var filtered = this.props.items;
-        if (this.props.filter === 'active') {
-            filtered = this.props.items.filter(item => !!item.complete);
+
+    applySort(items, column, direction) {
+        let type;
+        items = items.sort((a, b) => {
+            type = a[column] === ''+a[column] ? 'string' : 'numeric';
+            if (type === 'string') {
+                return direction === 'ascending' ?
+                    (a[column].toUpperCase() < b[column].toUpperCase() ? -1 : 1)
+                    : (a[column].toUpperCase() > b[column].toUpperCase() ? -1 : 1);
+            } else {
+                return direction === 'ascending' ?
+                    (a[column] < b[column] ? -1 : 1)
+                    : (a[column] > b[column] ? -1 : 1);
+            }
+        });
+        return items;
+    }
+
+    applyFilter(items, filter) {
+        if (filter === 'active') {
+            items = items.filter(item => !!item.complete);
         }
+        return items;
+    }
+
+    render() {
+        var items = this.applyFilter(this.props.items, this.props.filter);
+        items = this.applySort(items, this.props.sort.column, this.props.sort.direction);
         return (
             <div className="ui main text container">
                 <h1 className="ui header">TodoMVC</h1>
@@ -34,21 +57,33 @@ class Todos extends Component {
 
                 <Divider />
 
-                { this.props.items.length === 0 ? null : (
-                    <Table compact celled definition>
+                { items.length === 0 ? null : (
+                    <Table sortable compact celled definition>
                         <Table.Header>
                             <Table.Row>
                                 <Table.HeaderCell />
-                                <Table.HeaderCell>Description</Table.HeaderCell>
+                                <Table.HeaderCell sorted={this.props.sort.column === 'id' ? this.props.sort.direction : null}
+                                    onClick={(e) => this.props.handleSort('id')}
+                                    >
+                                    ID
+                                </Table.HeaderCell>
+                                <Table.HeaderCell sorted={this.props.sort.column === 'description' ? this.props.sort.direction : null}
+                                    onClick={(e) => this.props.handleSort('description')}
+                                    >
+                                    Description
+                                </Table.HeaderCell>
                                 <Table.HeaderCell />
                             </Table.Row>
                         </Table.Header>
 
                         <Table.Body>
-                            { filtered.map((item) => (
+                            { items.map((item) => (
                                 <Table.Row key={item.id}>
                                     <Table.Cell collapsing>
                                         <Radio toggle checked={!!item.complete} />
+                                    </Table.Cell>
+                                    <Table.Cell>
+                                        { item.id }
                                     </Table.Cell>
                                     <Table.Cell>
                                         <a role="button" style={{cursor: 'pointer'}}
@@ -69,7 +104,7 @@ class Todos extends Component {
                         <Table.Footer fullWidth>
                             <Table.Row>
                                 <Table.HeaderCell />
-                                <Table.HeaderCell colSpan='2'>
+                                <Table.HeaderCell colSpan='3'>
                                     <Button floated='right' icon labelPosition='left' primary size='small'
                                         onClick={(e) => this.props.todosClearComplete()}
                                         >

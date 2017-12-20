@@ -10,7 +10,8 @@ import {
     todosSetFilter,
     todosItemRemove,
     todosClearComplete,
-    todosSubmit
+    todosSubmit,
+    setTodosSort,
 } from '../actions.js';
 
 class Todos extends Component {
@@ -24,10 +25,15 @@ class Todos extends Component {
         this.removeTodoItem = this.removeTodoItem.bind(this);
         this.submit = this.submit.bind(this);
         this.todosClearComplete = this.todosClearComplete.bind(this);
+        this.handleSort = this.handleSort.bind(this);
     }
 
     componentDidMount() {
         todosFindAll();
+    }
+
+    handleSort(column) {
+        setTodosSort(column);
     }
 
     handleFormDescription(e, { name, value }) {
@@ -77,7 +83,8 @@ class Todos extends Component {
                 setFilter={this.setFilter}
                 removeTodoItem={this.removeTodoItem}
                 submit={this.submit}
-                todosClearComplete={todosClearComplete}
+                todosClearComplete={this.todosClearComplete}
+                handleSort={this.handleSort}
             />
         );
     }

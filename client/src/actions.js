@@ -16,6 +16,14 @@ export const logout = () => {
     Store.update('profile', { user: false });
 };
 
+export const setTodosSort = (column) => {
+    var direction = Store.get('todos.sort.direction');
+    direction = direction === 'ascending' ? 'descending' : 'ascending';
+    Store.update('todos', {
+        sort: {column: column, direction: direction}
+    });
+}
+
 export const loginSubmit = (cb) => {
     var auth_token = btoa(Store.get('login.email')+':'+Store.get('login.pwd'));
     var endpoint = Store.get('server.endpoint');
@@ -74,7 +82,9 @@ export const todosFindAll = () => {
         if (data.success) {
             Store.set('todos.items', data.items);
         }
-    });
+    }).catch(err => {
+        Store.update('todos', {loading: false});
+    })
 };
 
 export const todosEditItem = (todo) => {
