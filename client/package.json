@@ -51,7 +51,8 @@
   "scripts": {
     "theme": "cd src/semantic && gulp build",
     "start": "node scripts/start.js",
-    "build": "node scripts/build.js && cp -R ./build/. ../public",
+    "build": "node scripts/build.js",
+    "deploy": "node scripts/deploy.js",
     "test": "node scripts/test.js --env=jsdom"
   },
   "jest": {
